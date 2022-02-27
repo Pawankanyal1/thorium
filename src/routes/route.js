@@ -1,36 +1,85 @@
-const obj = require('../logger/logger.js')
-const helper = require('../util/helper.js')
-const formatter = require('../validator/formatter.js')
 const express = require('express');
 const router = express.Router();
-const lodash = require('lodash')
 
-router.get('/test-me', function (req, res) {
-    formatter.trim(' Function Up   ')
-    formatter.upperCase(' Function Up   ')
-    formatter.lowerCase(' Function Up   ')
-    helper.printDate()
-    helper.printMonth()
-    helper.getBatchInfo("Thorium, W4D1, the topic for today is nodejs module system")
-    obj.myPrintText("Welcome to my application. i am Suraj Dubey and  a part of FunctionUp Thorium cohort.")
-    res.send('My first ever api!')
-});
+// QUERY PARAMS
+// localhost:3000/get-query-1?myCoolVar=24&xyz=hiFunctionUP
+router.get("/get-query-1", function (req, res) {
+    let data = req.query
+    console.log(data)
+    res.send({ data: data, status: true })
+})
 
 
-router.get('/hello', function (req, res) {
-   let months = ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'June', 'July', 'Aug', 'Sept', 'Oct', 'Nov', 'Dec']
-   console.log(lodash.chunk(months, 3))
-   let oddNumbers = [1,3,5,7,9,11,13,15,17,19]
-   console.log(lodash.tail(oddNumbers))
-   let array1 = [1,2,3,4,5]
-   let array2 = [2,3,4,5,6]
-   let array3 = [3,4,5,6,7]
-   let array4 = [4,5,6,7,8]
-   let array5 = [5,6,7,8,9]
-   console.log(lodash.union(array1,array2,array3,array4,array5))
-   const pairs = [["horror","The Shining"],["drama","Titanic"],["thriller","Shutter Island"],["fantasy","Pans Labyrinth"]]
-   console.log(lodash.fromPairs(pairs))
-    res.send('My first ever !')
-});
+// take marks in req.query variable named "marks" and send "pass" if > 40 else "fail"
+router.get("/get-query-2", function (req, res) {
+    let marks = req.query.marks
+    // { marks: '80'}
+
+    let result = marks > 40 ? "pass" : "fail"
+    // let result = "fail"
+    // if (marks> 40) { result = "pass" }
+    // // else { result = "fail" }
+
+    res.send({ result: result, status: true })
+})
+
+//query params are also available in post request
+router.post("/post-query-1", function (req, res) {
+    let data = req.query
+    console.log(data)
+    res.send({ result: data, status: true })
+})
+
+let myArr = [23, 45, 67, 281394, 32424, 423, 24, 42323, 4, 234, 12, 34]
+//filter out all the numbers that are greater than input( input is received from query params)
+router.post("/post-query-2", function (req, res) {
+    //CODE HERE
+    let input= req.query.input
+    let finalArr= myArr.filter( ele => ele > input)
+    // let finalArr=[]
+    // for (i=0 ; i<myArr.length; i++) {
+    //     if ( myArr[i] > input )      finalArr.push(myArr[i]) 
+    // }
+    res.send({ result: finalArr , status: true })
+})
+
+
+// ASSIGNMENT:
+// you will be given an array of persons ( i.e an array of objects )..each person will have  a {name: String , age: Number, votingStatus: true/false(Boolean)}
+// take input in query param as votingAge..and for all the people above that age, change votingStatus as true
+// also return an array consisting of only the person that can vote
+
+//  take this as sample for array of persons:
+// let persons= [
+//     {
+//     name: "PK",
+//     age: 10,
+//     votingStatus: false
+// },
+// {
+//     name: "SK",
+//     age: 20,
+//     votingStatus: false
+// },
+// {
+//     name: "AA",
+//     age: 70,
+//     votingStatus: false
+// },
+// {
+//     name: "SC",
+//     age: 5,
+//     votingStatus: false
+// },
+// {
+//     name: "HO",
+//     age: 40,
+//     votingStatus: false
+// }
+// ]
+
+
+
+
 
 module.exports = router;
