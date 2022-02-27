@@ -1,73 +1,36 @@
+const obj = require('../logger/logger.js')
+const helper = require('../util/helper.js')
+const formatter = require('../validator/formatter.js')
 const express = require('express');
 const router = express.Router();
+const lodash = require('lodash')
 
-router.get('/students/:name', function(req, res) {
-    let studentName = req.params.name
-    console.log(studentName)
-    res.send(studentName)
-})
-
-router.get("/random" , function(req, res) {
-    res.send("hi there")
-})
-
-
-router.get("/test-api" , function(req, res) {
-    res.send("hi FunctionUp")
-})
+router.get('/test-me', function (req, res) {
+    formatter.trim(' Function Up   ')
+    formatter.upperCase(' Function Up   ')
+    formatter.lowerCase(' Function Up   ')
+    helper.printDate()
+    helper.printMonth()
+    helper.getBatchInfo("Thorium, W4D1, the topic for today is nodejs module system")
+    obj.myPrintText("Welcome to my application. i am Suraj Dubey and  a part of FunctionUp Thorium cohort.")
+    res.send('My first ever api!')
+});
 
 
-router.get("/test-api-2" , function(req, res) {
-    res.send("hi FunctionUp. This is another cool API")
-})
-
-
-router.get("/test-api-3" , function(req, res) {
-    res.send("hi FunctionUp. This is another cool API. And NOw i am bored of creating API's ")
-})
-
-
-router.get("/test-api-4" , function(req, res) {
-    res.send("hi FunctionUp. This is another cool API. And NOw i am bored of creating API's. PLZ STOP CREATING MORE API;s ")
-})
-
-
-
-router.get("/test-api-5" , function(req, res) {
-    res.send("hi FunctionUp5. This is another cool API. And NOw i am bored of creating API's. PLZ STOP CREATING MORE API;s ")
-})
-
-router.get("/test-api-6" , function(req, res) {
-    res.send({a:56, b: 45})
-})
-
-router.post("/test-post", function(req, res) {
-    res.send([ 23, 45 , 6])
-})
-
-
-router.post("/test-post-2", function(req, res) {
-    res.send(  { msg: "hi" , status: true }  )
-})
-
-router.post("/test-post-3", function(req, res) {
-    // let id = req.body.user
-    // let pwd= req.body.password
-
-    // console.log( id , pwd)
-
-    console.log( req.body )
-
-    res.send(  { msg: "hi" , status: true }  )
-})
-
-
-
-router.post("/test-post-4", function(req, res) {
-    let arr= [ 12, "functionup"]
-    let ele= req.body.element
-    arr.push(ele)
-    res.send(  { msg: arr , status: true }  )
-})
+router.get('/hello', function (req, res) {
+   let months = ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'June', 'July', 'Aug', 'Sept', 'Oct', 'Nov', 'Dec']
+   console.log(lodash.chunk(months, 3))
+   let oddNumbers = [1,3,5,7,9,11,13,15,17,19]
+   console.log(lodash.tail(oddNumbers))
+   let array1 = [1,2,3,4,5]
+   let array2 = [2,3,4,5,6]
+   let array3 = [3,4,5,6,7]
+   let array4 = [4,5,6,7,8]
+   let array5 = [5,6,7,8,9]
+   console.log(lodash.union(array1,array2,array3,array4,array5))
+   const pairs = [["horror","The Shining"],["drama","Titanic"],["thriller","Shutter Island"],["fantasy","Pans Labyrinth"]]
+   console.log(lodash.fromPairs(pairs))
+    res.send('My first ever !')
+});
 
 module.exports = router;
