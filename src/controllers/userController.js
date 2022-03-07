@@ -1,17 +1,12 @@
-const UserModel= require("../models/userModel")
+const UserModel = require('../models/userSchema')
 
-const createUser= async function (req, res) {
-    let data= req.body
-    let savedData= await UserModel.create(data)
-    console.log(req.newAtribute)
-    res.send({msg: savedData})
+const createUser = async function (req, res){
+
+    let user = await UserModel.create(req.body)
+    res.send({user : user})
+
 }
 
-const getUsersData= async function (req, res) {
-    let allUsers= await UserModel.find()
-    console.log(req.newAtribute)
-    res.send({msg: allUsers})
-}
 
-module.exports.createUser= createUser
-module.exports.getUsersData= getUsersData
+
+module.exports.createUser = createUser
