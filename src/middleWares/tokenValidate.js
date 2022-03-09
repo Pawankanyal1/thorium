@@ -11,7 +11,7 @@ const validateToken = async function (req, res, next) {
   if (!token)
     return res.send({ status: false, msg: "[x-auth-token] must be provided" });
 
-  let tokenValidation =  jwt.verify(token, "surajdubey");
+  let tokenValidation =  jwt.verify(token, "pawankanyal");
   console.log(tokenValidation)
   
   if (tokenValidation.userId != id )
