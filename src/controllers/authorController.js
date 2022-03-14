@@ -118,7 +118,7 @@ const loginAuthor = async function (req, res) {
             authorId: author._id,
             iat: Math.floor(Date.now() / 1000),
             exp: Math.floor(Date.now() / 1000) + 10*60*60
-        }, 'someverysecuredprivatekey291@(*#*(@(@()')
+        }, 'PawanKanyal')
 
         res.header('x-api-key', token);
         res.status(200).send({status: true, message: `Author login successfull`, data: {token}});
