@@ -26,7 +26,7 @@ const createUrl = async function (req, res){
     if(!isValid(baseUrl)){
         return res.status(400).send({status:false, message: 'Please provide baseUrl'})
      }
-    if(!validUrl.isUri(baseUrl)){
+    if(!validUrl.isUrl(baseUrl)){
         return res.status(400).send({status:false, message: 'Invalid baseUrl'})
     }
     
@@ -48,11 +48,11 @@ const createUrl = async function (req, res){
 const getUrl = async function(req, res) {
     try{
         let urlCode = req.params
-    let originalUrl = await urlModel.findOne(urlCode).select({longUrl:1})
+    let originalUrl = await urlModel.findOne(urlCode)
     if(!originalUrl){
         return res.status(400).send({status:false,message:"url not found"})
     }else{
-        return res.status(201).redirect(originalUrl.longUrl)
+        return res.status(302).redirect(originalUrl.longUrl)
     }
 }catch(err){
     return res.status(500).send({status:false,err:err.message})
