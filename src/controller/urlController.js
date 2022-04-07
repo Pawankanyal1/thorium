@@ -23,6 +23,7 @@ const redisClient = redis.createClient(
   const SET_ASYNC = promisify(redisClient.SET).bind(redisClient);
   const GET_ASYNC = promisify(redisClient.GET).bind(redisClient);
 
+
 const isValid = (val) =>{
     if(typeof val === "undefined" || typeof val === null )return false;
     if(typeof val === "string" && val.trim().length === 0)return false;
@@ -48,7 +49,7 @@ const createUrl = async function (req, res){
     if(!isValid(baseUrl)){
         return res.status(400).send({status:false, message: 'Please provide baseUrl'})
      }
-    if(!validUrl.isUrl(baseUrl)){
+    if(!validUrl.isUri(baseUrl)){
         return res.status(400).send({status:false, message: 'Invalid baseUrl'})
     }
     
